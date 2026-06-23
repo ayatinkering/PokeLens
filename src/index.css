@@ -35,6 +35,7 @@ body {
 .frame {
   min-height: calc(100vh - 4rem);
   border: 2px solid white;
+  border-radius: 2px;
   outline: 1px solid #9b9b9b;
   outline-offset: 6px;
   padding: 2rem;

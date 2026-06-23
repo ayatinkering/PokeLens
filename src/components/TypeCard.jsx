@@ -7,8 +7,7 @@ export default function TypeCard({ type }) {
         px-3
         py-1
         rounded-full
-        text-sm
-        font-semibold
+        text-xs
       "
       style={{
         color: pokemonTypeColors?.[type]?.color,

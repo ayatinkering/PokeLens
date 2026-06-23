@@ -61,7 +61,7 @@ const endPokemon = Math.min(
           setSearchValue(e.target.value);
           setPage(1);
         }}
-        placeholder="Search any Pokémon..."
+        placeholder="Search a Pokémon..."
         className="
           w-full
           mx-auto
@@ -69,7 +69,7 @@ const endPokemon = Math.min(
           mb-8
           px-4
           py-3
-          rounded-lg
+          rounded-md
           bg-zinc-900
           border
           border-zinc-700
@@ -103,7 +103,7 @@ const endPokemon = Math.min(
         <button
   disabled={page === 1}
   className={`
-    border px-4 py-2 rounded-lg
+    border px-4 py-2 rounded-md
     ${page === 1
       ? "border-zinc-500 text-zinc-500 cursor-not-allowed"
       : "hover:bg-zinc-800 hover:cursor-pointer"
@@ -128,7 +128,7 @@ const endPokemon = Math.min(
         <button
   disabled={page === totalPages}
   className={`
-    border px-4 py-2 rounded-lg
+    border px-4 py-2 rounded-md
     ${page === totalPages
       ? "border-zinc-500 text-zinc-500 cursor-not-allowed"
       : "hover:bg-zinc-800 hover:cursor-pointer"
