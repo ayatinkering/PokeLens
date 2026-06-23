@@ -76,7 +76,7 @@ export default function PokeCard(props) {
             setLoading(true)
             try {
                 const baseUrl = 'https://pokeapi.co/api/v2/'
-                const suffix = 'pokemon/' + getPokedexNumber(selectedPokemon)
+                const suffix = 'pokemon/' +selectedPokemon
                 const finalUrl = baseUrl + suffix
                 const res = await fetch(finalUrl)
                 const pokemonData = await res.json()
@@ -104,32 +104,55 @@ export default function PokeCard(props) {
         )
     }
 
+    //Calculate BST
+    const bst = stats?.reduce(
+  (acc, stat) => acc + stat.base_stat,
+  0
+);
+
+//diff colours for STATS BARS
+const statColors = {
+  hp: "from-red-400 to-red-500",
+  attack: "from-orange-400 to-orange-500",
+  defense: "from-yellow-300 to-yellow-400",
+  "special-attack":
+    "from-blue-400 to-blue-500",
+  "special-defense":
+    "from-green-400 to-green-500",
+  speed:
+    "from-pink-400 to-pink-500"
+};
+
 
     return (
   <Modal handleCloseModal={closeModal}>
     <div
       className="
-        bg-zinc-950
-        border
-        border-zinc-700
-        rounded-2xl
-        w-[1200px]
-        h-[700px]
-        p-8
-        flex
-        gap-10
-      "
+  bg-[#ff3234]
+  border-3
+  border-black/70
+  rounded-xl
+  w-[940px]
+  h-[80vh]
+  flex
+  overflow-hidden
+"
     >
 
       {/* LEFT */}
 
-      <div className="w-1/2 relative">
+      <div className="w-[48%] bg-[#ff3234] relative overflow-hidden border-r-3 border-black/70">
 
         <img
-          src="/pokedex.png"
-          alt="pokedex"
-          className="w-full"
-        />
+  src="/pokedex.png"
+  alt="pokedex"
+  className="
+    w-full
+    h-full
+    object-fill
+    
+  "
+/>
 
         <img
   src={
@@ -140,40 +163,45 @@ export default function PokeCard(props) {
   alt={name}
   className="
     absolute
-    top-[110px]
-    left-[80px]
-    w-[240px]
+    top-[250px]
+    left-1/2
+    -translate-x-1/2
+    -translate-y-1/2
+    w-[280px]
   "
 />
 
         <p
-          className="
-            absolute
-            bottom-[92px]
-            left-[145px]
-            text-black
-            font-bold
-            text-lg
-          "
-        >
-          {name}
-        </p>
+  className="
+    absolute
+    bottom-[60px]
+    left-[52%]
+    -translate-x-1/2
+    text-center
+    text-black
+    font-bold
+    text-2xl
+    
+  "
+>
+  {name.toUpperCase()}
+</p>
 
       </div>
 
       {/* RIGHT */}
 
-      <div className="w-1/2 overflow-y-auto">
+      <div className="w-[52%] bg-[#111114] overflow-y-auto p-6 border-[32px] border-[#ff3234]">
 
-        <p className="text-zinc-500">
+        <p className="text-zinc-300 text-lg">
           #{getFullPokedexNumber(selectedPokemon)}
         </p>
 
-        <h2 className="text-4xl font-bold mb-4">
-          {name}
+        <h2 className="text-4xl mb-2">
+          {name.toUpperCase()}
         </h2>
 
-        <div className="flex gap-2 mb-8">
+        <div className="flex gap-2 mb-3">
           {types.map((typeObj, index) => (
             <TypeCard
               key={index}
@@ -182,45 +210,103 @@ export default function PokeCard(props) {
           ))}
         </div>
 
-        <h3 className="text-xl font-bold mb-4">
-          Stats
-        </h3>
+        <div className="grid grid-cols-4 gap-4 mb-4">
 
-        <div className="space-y-3 mb-8">
-          {stats.map((statObj) => (
-            <div
-              key={statObj.stat.name}
-              className="
-                flex
-                justify-between
-                border-b
-                border-zinc-800
-                pb-2
-              "
-            >
-              <p>
-                {statObj.stat.name}
-              </p>
+  <div className="bg-zinc-900 p-2 rounded-lg">
+    <p className="text-zinc-500 text-xs">
+      HEIGHT
+    </p>
+    <h3 className="text-[15px]">
+      {(height / 10).toFixed(1)} m
+    </h3>
+  </div>
 
-              <p>
-                {statObj.base_stat}
-              </p>
-            </div>
-          ))}
+  <div className="bg-zinc-900 p-2 rounded-lg">
+    <p className="text-zinc-500 text-xs">
+      WEIGHT
+    </p>
+    <h3 className="text-[14px]">
+      {(data.weight / 10).toFixed(1)} kg
+    </h3>
+  </div>
+
+  <div className="bg-zinc-900 p-2 rounded-lg">
+    <p className="text-zinc-500 text-xs">
+      BASE XP
+    </p>
+    <h3 className="text-[15px]">
+      {data.base_experience}
+    </h3>
+  </div>
+
+  <div className="bg-zinc-900 p-2 rounded-lg">
+    <p className="text-zinc-500 text-xs">
+      BST
+    </p>
+    <h3 className="text-[15px]">
+      {bst}
+    </h3>
+  </div>
+
+</div>
+
+        <h3 className="text-lg mb-1">
+  STATS
+</h3>
+
+<div className="space-y-1 mb-6">
+
+  {stats.map((statObj) => {
+
+    const value = statObj.base_stat;
+
+    return (
+      <div
+        key={statObj.stat.name}
+        className="grid grid-cols-[150px_30px_1fr] items-center gap-2 text-sm"
+      >
+        <p>
+          {statObj.stat.name[0].toUpperCase()+statObj.stat.name.substring(1)}
+        </p>
+
+        <p>
+          {value}
+        </p>
+
+        <div className="h-2 bg-zinc-800 rounded-full overflow-hidden">
+
+          <div
+            className={`
+  h-full
+  rounded-full
+  bg-gradient-to-r
+  ${statColors[statObj.stat.name]}
+`}
+            style={{
+              width: `${Math.min(
+                value,
+                150
+              ) / 150 * 100}%`
+            }}
+          />
+
         </div>
 
-        <h3 className="text-xl font-bold mb-4">
-          Moves
+      </div>
+    );
+
+  })}
+
+</div>
+
+        <h3 className="text-lg mb-1 ">
+          MOVES
         </h3>
 
         <div
-          className="
-            grid
-            grid-cols-2
-            gap-2
-          "
+          className="flex flex-wrap gap-2"
         >
-          {moves.slice(0, 40).map((moveObj) => (
+          {moves.slice(0, 24).map((moveObj) => (
             <button
               key={moveObj.move.name}
               onMouseEnter={() =>
@@ -230,12 +316,18 @@ export default function PokeCard(props) {
                 )
               }
               className="
-                bg-zinc-900
-                px-3
-                py-2
-                rounded-lg
-                text-left
-              "
+  px-2
+  py-0.5
+  m-0
+  rounded-full
+  border
+  border-zinc-700
+  bg-zinc-900
+  hover:bg-zinc-800
+  cursor-grab
+  capitalize
+  text-xs
+"
             >
               {moveObj.move.name}
             </button>
@@ -243,24 +335,27 @@ export default function PokeCard(props) {
         </div>
 
         {skill && (
-          <div
-            className="
-              mt-6
-              p-4
-              border
-              border-zinc-700
-              rounded-xl
-            "
-          >
-            <h4 className="font-bold mb-2">
-              {skill.name}
-            </h4>
+  <div
+    className="
+      sticky
+      bottom-0
+      mt-4
+      py-2 px-3
+      rounded-xl
+      border
+      border-zinc-700
+      bg-zinc-900
+    "
+  >
+    <h4 className="mb-1 capitalize text-sm">
+      {skill.name}
+    </h4>
 
-            <p className="text-zinc-300">
-              {skill.description}
-            </p>
-          </div>
-        )}
+    <p className="text-zinc-200 text-xs">
+      {skill.description}
+    </p>
+  </div>
+)}
 
       </div>
 
