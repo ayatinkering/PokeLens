@@ -1,0 +1,102 @@
+import { useEffect, useState } from "react";
+import TypeCard from "./TypeCard";
+
+export default function PokemonGrid({
+  pokemonList,
+  setSelectedPokemon,
+}) {
+
+  const [pokemonData, setPokemonData] = useState({});
+
+  useEffect(() => {
+
+    pokemonList.forEach(async (pokemon) => {
+
+      const res = await fetch(pokemon.url);
+
+      const data = await res.json();
+
+      setPokemonData((prev) => ({
+        ...prev,
+        [pokemon.name]: data,
+      }));
+    });
+
+  }, [pokemonList]);
+
+  return (
+    <div
+      className="
+        grid
+        grid-cols-2
+        md:grid-cols-4
+        lg:grid-cols-5
+        xl:grid-cols-6
+        gap-6
+      "
+    >
+
+      {pokemonList.map((pokemon) => {
+
+        const data =
+          pokemonData[pokemon.name];
+
+        if (!data) return null;
+
+        return (
+          <button
+            key={pokemon.name}
+            onClick={() =>
+              setSelectedPokemon(data.id)
+            }
+            className="
+              border
+              border-zinc-700
+              rounded-3xl
+              p-5
+              bg-zinc-950
+              hover:border-white
+              transition-all
+            "
+          >
+
+            <p className="text-zinc-500 mb-2">
+              #{String(data.id).padStart(3, "0")}
+            </p>
+
+            <img loading="lazy"
+              src={
+                data.sprites.other[
+                  "official-artwork"
+                ].front_default
+              }
+              alt={data.name}
+              className="
+                h-32
+                mx-auto
+                object-contain
+              "
+            />
+
+            <h3 className="capitalize text-lg mt-3">
+              {data.name}
+            </h3>
+
+            <div className="flex justify-center gap-2 mt-3 flex-wrap">
+
+              {data.types.map((typeObj) => (
+                <TypeCard
+                  key={typeObj.type.name}
+                  type={typeObj.type.name}
+                />
+              ))}
+
+            </div>
+
+          </button>
+        );
+      })}
+
+    </div>
+  );
+}
