@@ -11,6 +11,7 @@
 body {
   background-color: black;
   color: white;
+  font-family: bulletin;
 }
 
 @keyframes wiggle {
@@ -38,4 +39,69 @@ body {
   outline-offset: 6px;
   padding: 2rem;
   margin: 4rem;
+}
+
+.pokemon-card {
+  position: relative;
+  background: black;
+  border: 1px solid rgb(63 63 70);
+  padding: 1rem;
+  min-height: 280px;
+  cursor: crosshair;
+  overflow: visible;
+}
+.corner {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  pointer-events: none;
+  transition: all 0.2s ease;
+}
+
+/* TOP LEFT */
+
+.tl {
+  top: -2px;
+  left: -2px;
+
+  border-top: 2px solid white;
+  border-left: 2px solid white;
+}
+
+/* TOP RIGHT */
+
+.tr {
+  top: -2px;
+  right: -2px;
+
+  border-top: 2px solid white;
+  border-right: 2px solid white;
+}
+
+/* BOTTOM LEFT */
+
+.bl {
+  bottom: -2px;
+  left: -2px;
+
+  border-bottom: 2px solid white;
+  border-left: 2px solid white;
+}
+
+/* BOTTOM RIGHT */
+
+.br {
+  bottom: -2px;
+  right: -2px;
+
+  border-bottom: 2px solid white;
+  border-right: 2px solid white;
+}
+
+.pokemon-card:hover .tl,
+.pokemon-card:hover .tr,
+.pokemon-card:hover .bl,
+.pokemon-card:hover .br {
+  width: 20px;
+  height: 20px;
 }

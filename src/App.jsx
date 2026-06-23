@@ -61,16 +61,15 @@ const endPokemon = Math.min(
           setSearchValue(e.target.value);
           setPage(1);
         }}
-        placeholder="Search Pokémon..."
+        placeholder="Search any Pokémon..."
         className="
           w-full
-          max-w-xl
           mx-auto
           block
           mb-8
           px-4
           py-3
-          rounded-xl
+          rounded-lg
           bg-zinc-900
           border
           border-zinc-700
@@ -78,61 +77,69 @@ const endPokemon = Math.min(
       />
 
 
-<div className="mb-8 text-zinc-400">
-
+<div className="mb-4 text-white">
   Showing
-
   <span className="text-yellow-400 mx-2">
     {startPokemon}
   </span>
-
   -
-
   <span className="text-yellow-400 mx-2">
     {endPokemon}
   </span>
-
   of
-
   <span className="mx-2">
     {filteredPokemon.length}
   </span>
-
   Pokémon
-
 </div>
+      
       <PokemonGrid
         pokemonList={currentPokemon}
         setSelectedPokemon={setSelectedPokemon}
       />
 
-      <div className="flex justify-center gap-4 mt-10">
+      <div className="flex justify-center gap-20 mt-8 ">
 
         <button
+  disabled={page === 1}
+  className={`
+    border px-4 py-2 rounded-lg
+    ${page === 1
+      ? "border-zinc-500 text-zinc-500 cursor-not-allowed"
+      : "hover:bg-zinc-800 hover:cursor-pointer"
+    }
+  `}
   onClick={() => {
-    setPage(page - 1)
-
+    setPage(page - 1);
     window.scrollTo({
       top: 0,
-      behavior: "smooth"
-    })
+      behavior: "smooth",
+    });
   }}
 >
   Previous
 </button>
+
 
         <p>
           Page {page} / {totalPages}
         </p>
 
         <button
+  disabled={page === totalPages}
+  className={`
+    border px-4 py-2 rounded-lg
+    ${page === totalPages
+      ? "border-zinc-500 text-zinc-500 cursor-not-allowed"
+      : "hover:bg-zinc-800 hover:cursor-pointer"
+    }
+  `}
   onClick={() => {
-    setPage(page + 1)
-
+    setPage(page + 1);
     window.scrollTo({
       top: 0,
-      behavior: "smooth"
-    })
+      behavior: "smooth",
+    });
   }}
 >
   Next

@@ -44,56 +44,58 @@ export default function PokemonGrid({
         if (!data) return null;
 
         return (
-          <button
-            key={pokemon.name}
-            onClick={() =>
-              setSelectedPokemon(data.id)
-            }
-            className="
-              border
-              border-zinc-700
-              rounded-3xl
-              p-5
-              bg-zinc-950
-              hover:border-white
-              transition-all
-            "
-          >
+          
+            <button
+  className="pokemon-card hover:!bg-zinc-800"
+  key={pokemon.name}
+  onClick={() => setSelectedPokemon(data.id)}
+>
+  <span className="corner tl"></span>
+  <span className="corner tr"></span>
+  <span className="corner bl"></span>
+  <span className="corner br"></span>
 
-            <p className="text-zinc-500 mb-2">
-              #{String(data.id).padStart(3, "0")}
-            </p>
+  <p className="text-zinc-500 mb-2">
+    #{String(data.id).padStart(3, "0")}
+  </p>
 
-            <img loading="lazy"
-              src={
-                data.sprites.other[
-                  "official-artwork"
-                ].front_default
-              }
-              alt={data.name}
-              className="
-                h-32
-                mx-auto
-                object-contain
-              "
-            />
+  <img
+    loading="lazy"
+    src={
+      data.sprites.other[
+        "official-artwork"
+      ].front_default
+    }
+    alt={data.name}
+    className="
+      h-32
+      mx-auto
+      object-contain
+    "
+  />
 
-            <h3 className="capitalize text-lg mt-3">
-              {data.name}
-            </h3>
+  <h3 className="capitalize text-lg mt-3">
+    {data.name}
+  </h3>
 
-            <div className="flex justify-center gap-2 mt-3 flex-wrap">
+  <div
+    className="
+      flex
+      justify-center
+      gap-2
+      mt-3
+      flex-wrap
+    "
+  >
+    {data.types.map((typeObj) => (
+      <TypeCard
+        key={typeObj.type.name}
+        type={typeObj.type.name}
+      />
+    ))}
+  </div>
+</button>
 
-              {data.types.map((typeObj) => (
-                <TypeCard
-                  key={typeObj.type.name}
-                  type={typeObj.type.name}
-                />
-              ))}
-
-            </div>
-
-          </button>
         );
       })}
 
