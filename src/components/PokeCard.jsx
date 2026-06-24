@@ -127,22 +127,32 @@ const statColors = {
     return (
   <Modal handleCloseModal={closeModal}>
     <div
-      className="
-  bg-[#ff3234]
-  border-3
-  border-black/70
-  rounded-xl
-  w-[940px]
-  h-[80vh]
-  flex
-  overflow-hidden
-"
-    >
+  className="
+    bg-[#ff3234]
+    border-3
+    border-black/70
+    rounded-xl
+    w-[95vw]
+    max-w-[1100px]
+    h-[90vh]
+    max-h-[900px]
+    flex
+    overflow-hidden
+  "
+>
 
       {/* LEFT */}
 
-      <div className="w-[48%] bg-[#ff3234] relative overflow-hidden border-r-3 border-black/70">
-
+      <div className="
+  w-full
+  lg:w-[48%]
+  bg-[#ff3234]
+  relative
+  overflow-hidden
+  border-r-0
+  lg:border-r-3
+  border-black/70
+">
         <img
   src="/pokedex.png"
   alt="pokedex"
@@ -156,32 +166,34 @@ const statColors = {
 
         <img
   src={
-    data.sprites.other.home.front_default
-    ||
+    data.sprites.other.home.front_default ||
     data.sprites.other["official-artwork"].front_default
   }
   alt={name}
   className="
     absolute
-    top-[250px]
     left-1/2
+    top-[42%]
     -translate-x-1/2
     -translate-y-1/2
-    w-[280px]
+    w-[40%]
+    max-w-[320px]
+    min-w-[180px]
   "
 />
 
         <p
   className="
     absolute
-    bottom-[60px]
-    left-[52%]
+    left-1/2
+    bottom-[7%]
     -translate-x-1/2
     text-center
     text-black
     font-bold
-    text-2xl
-    
+    text-[clamp(18px,2vw,34px)]
+    w-[45%]
+    uppercase
   "
 >
   {name.toUpperCase()}
@@ -191,8 +203,17 @@ const statColors = {
 
       {/* RIGHT */}
 
-      <div className="w-[52%] bg-[#111114] overflow-y-auto p-6 border-[32px] border-[#ff3234]">
-
+<div className="
+  w-full
+  lg:w-[52%]
+  bg-[#111114]
+  overflow-y-auto
+  p-4
+  md:p-6
+  border-[20px]
+  md:border-[32px]
+  border-[#ff3234]
+">
         <p className="text-zinc-300 text-lg">
           #{getFullPokedexNumber(selectedPokemon)}
         </p>
@@ -263,7 +284,8 @@ const statColors = {
     return (
       <div
         key={statObj.stat.name}
-        className="grid grid-cols-[150px_30px_1fr] items-center gap-2 text-sm"
+        className="grid grid-cols-[120px_35px_1fr]
+md:grid-cols-[150px_35px_1fr] items-center gap-2 text-sm"
       >
         <p>
           {statObj.stat.name[0].toUpperCase()+statObj.stat.name.substring(1)}

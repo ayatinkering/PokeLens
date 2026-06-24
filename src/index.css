@@ -33,15 +33,17 @@ body {
 }
 
 .frame {
-  min-height: calc(100vh - 4rem);
+  min-height: calc(100vh - 2rem);
+
   border: 2px solid white;
   border-radius: 2px;
+
   outline: 1px solid #9b9b9b;
   outline-offset: 6px;
-  padding: 2rem;
-  margin: 4rem;
-}
 
+  padding: clamp(1rem, 2vw, 2rem);
+  margin: clamp(0.75rem, 3vw, 4rem);
+}
 .pokemon-card {
   position: relative;
   background: black;
