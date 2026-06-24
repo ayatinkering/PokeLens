@@ -6,6 +6,7 @@ mx-auto
 w-[90vw]
 max-w-[650px]
 mt-6
+wiggle-hover
 "/>
 
       <p className="mt-3 text-xl text-white">
